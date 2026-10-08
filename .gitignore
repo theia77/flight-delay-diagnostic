@@ -1,0 +1,21 @@
+# Python virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Environment / secrets
+.env
+
+# Large datasets
+data/flights.csv
+data/flights_dec2015.csv
+data/flights_dec2015_clean.csv
+data/flight_delay.db
+
+# Duplicate Power BI file
+dashboard/Flight Delay Dashboard.pbix
