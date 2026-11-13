@@ -8,7 +8,7 @@ table flights_dec2015_clean
 			    'flights_dec2015_clean'[CANCELLED] = 0,
 			    'flights_dec2015_clean'[DIVERTED] = 0
 			)
-		formatString: 0
+		formatString: #,0
 		lineageTag: 09c5aebd-b610-4626-ac4e-84a5458432f4
 
 	measure 'Delayed Flights' =
@@ -17,7 +17,7 @@ table flights_dec2015_clean
 			    COUNTROWS('flights_dec2015_clean'),
 			    'flights_dec2015_clean'[IS_DELAYED] = 1
 			)
-		formatString: 0
+		formatString: #,0
 		lineageTag: db50e8b8-064b-4de7-821d-dbf475737d42
 
 	measure 'Delay Rate' =
@@ -48,7 +48,7 @@ table flights_dec2015_clean
 			    'flights_dec2015_clean'[CANCELLED] = 0,
 			    'flights_dec2015_clean'[DIVERTED] = 0
 			)
-		formatString: 0
+		formatString: #,0
 		lineageTag: 6ef97be7-63c2-459e-ba42-6307b9d11821
 
 	measure 'Airport Rank' =
@@ -74,6 +74,18 @@ table flights_dec2015_clean
 			)
 		formatString: 0.0
 		lineageTag: bcaa882d-552d-4c65-ada2-8a4843716e9a
+
+	measure 'Cancellation Rate' = DIVIDE(CALCULATE(COUNTROWS('flights_dec2015_clean'), 'flights_dec2015_clean'[CANCELLED] = 1), COUNTROWS('flights_dec2015_clean'))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dee8dd3e-92dd-4dc8-82df-3ade4c14556b
+
+	measure 'Late Aircraft Share' = DIVIDE(SUM('flights_dec2015_clean'[LATE_AIRCRAFT_DELAY]), SUM('flights_dec2015_clean'[AIR_SYSTEM_DELAY]) + SUM('flights_dec2015_clean'[SECURITY_DELAY]) + SUM('flights_dec2015_clean'[AIRLINE_DELAY]) + SUM('flights_dec2015_clean'[LATE_AIRCRAFT_DELAY]) + SUM('flights_dec2015_clean'[WEATHER_DELAY]))
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 408a4315-874e-41d7-82ad-bc2ff0e43274
+
+	measure 'Airport Delayed Rank' = RANKX(ALL('flights_dec2015_clean'[ORIGIN_AIRPORT]), [Delayed Flights], , DESC, DENSE)
+		formatString: 0
+		lineageTag: 9ff408f6-6186-4f5b-a1d6-cc23c182537c
 
 	column YEAR
 		dataType: int64

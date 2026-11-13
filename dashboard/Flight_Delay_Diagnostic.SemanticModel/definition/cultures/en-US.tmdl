@@ -15,7 +15,363 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
-			          "Avg Delay When Delayed (min)": {
+			          "Avg delay when delayed (min)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.airline_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "AIRLINE_NAME"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Airline": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.delay_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "Delay Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delay rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.day": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "DAY"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Day of December": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.cancellation_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "Cancellation Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Cancellation rate": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.delayed_flights": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "Delayed Flights"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delayed flights (15+ min)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Delayed flights": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.total_operated_flights": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "Total Operated Flights"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Operated flights": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Flights": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.origin_airport": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "ORIGIN_AIRPORT"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Origin airport": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.late_aircraft_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "Late Aircraft Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Late-aircraft share of delay minutes": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "flights_dec2015_clean.dep_hour": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "flights_dec2015_clean",
+			          "ConceptualProperty": "DEP_HOUR"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Scheduled departure hour": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "delay_causes.cause": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Delay Causes",
+			          "ConceptualProperty": "Cause"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Cause": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "delay_causes.delay_minutes": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Delay Causes",
+			          "ConceptualProperty": "Delay Minutes"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delay minutes": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "cascade_summary.delay_rate_after_delayed_flight": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Cascade Summary",
+			          "ConceptualProperty": "Delay Rate After Delayed Flight"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delay rate after a delayed flight": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "cascade_summary.delay_rate_after_ontime_flight": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Cascade Summary",
+			          "ConceptualProperty": "Delay Rate After On-time Flight"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delay rate after an on-time flight": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "cascade_summary.potential_cascade_flights": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Cascade Summary",
+			          "ConceptualProperty": "Potential Cascade Flights"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Potential cascade flights": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "cascade_summary.previous_flight_status": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Cascade Summary",
+			          "ConceptualProperty": "Previous flight status"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Previous flight": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "cascade_summary.cascade_delay_rate": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Cascade Summary",
+			          "ConceptualProperty": "Cascade Delay Rate"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Delay rate of next flight": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

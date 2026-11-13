@@ -4,6 +4,42 @@ An end-to-end data analytics project analyzing **December 2015 U.S. flight opera
 
 The project combines **Python, SQL, and Power BI** to move from raw flight data to validated analysis and an interactive analytical dashboard.
 
+![Power BI dashboard: overview page](dashboard/overview.png)
+
+---
+
+## 🧭 Executive Summary
+
+**One in five operated flights (20.6%) arrived 15+ minutes late in December 2015, and most of that delay was operational and self-reinforcing rather than weather-driven.**
+
+### Key findings
+
+| # | Finding | Evidence |
+| - | ------- | -------- |
+| 1 | **Delays spread from flight to flight.** | 70.45% of flights were delayed when the same aircraft's previous flight was delayed, vs 11.43% when it was not (about 6x). Late-arriving aircraft caused **41.9%** of all delay minutes, the largest single cause. |
+| 2 | **The holiday peak drove the month.** | 22–30 December had 28% of the month's flights but **47% of its delayed flights**; the daily delay rate averaged 33.5%, against 15.1% for 1–21 December. |
+| 3 | **Delays build up through the day.** | Evening departures (5–9pm) were delayed **26.0%** of the time, about twice the rate of early-morning departures (5–8am, 13.3%). |
+| 4 | **Performance differs widely between airlines.** | Delay rates ranged from 6.9% (Hawaiian) to 30.0% (Spirit). Among the largest carriers, Delta (16.0%) beat Southwest (22.5%) by 6.5 points. |
+| 5 | **A few hubs carry a large share of the problem.** | The 10 origin airports with the most delayed flights account for 38% of all delayed flights. JFK (29.4%), SFO (27.6%) and DEN (25.9%) combine high volume with high delay rates. |
+
+Recorded extreme-weather delay accounted for only **5.4%** of delay minutes; carrier (31.3%) and late-aircraft (41.9%) delays together made up about **73%**.
+
+### Recommendations
+
+These recommendations are for an airline operations team. They are based on observed associations, so each should be tested before being rolled out widely.
+
+1. **Break the delay chain at turnaround.** Flag any aircraft arriving 15+ minutes late and give its next departure priority for gate, crew and ground handling, or swap in a standby aircraft at hubs. The 49,898 flights in the cascade analysis that followed a delayed flight are the target group; *as an illustration*, lowering their delay rate from 70% to 60% would avoid about 5,000 delayed flights (around 5% of the month's total).
+2. **Plan the holiday peak as a separate operation.** Add reserve aircraft and crew, and more schedule buffer, for 22–30 December, when delay rates more than doubled.
+3. **Add buffer to late-day schedules.** Lengthen scheduled turnaround times for afternoon and evening rotations, where accumulated delay is highest, rather than spreading buffer evenly across the day.
+4. **Focus ground-operations improvement on a few hubs.** Start with JFK, SFO and DEN (high rate and high volume), then ATL and ORD (the most delayed flights in absolute terms).
+5. **Benchmark against the best large carriers.** Compare Southwest's turnaround and scheduling practices with Delta's to understand the 6.5-point gap between two airlines of similar scale.
+
+### Limitations
+
+* One month of data (December 2015), so seasonal effects are strong; results should be checked against other months.
+* The cascade analysis shows association, not causation: consecutive flights share airports, weather and congestion.
+* Delay-cause minutes are reported by airlines and only recorded for delayed flights.
+
 ---
 
 ## 📌 Project Overview
@@ -40,7 +76,7 @@ The primary objectives of the project were to:
 
 ## 📊 Dataset
 
-**Source:** U.S. Department of Transportation flight-delay dataset available through Kaggle.
+**Source:** U.S. Department of Transportation flight-delay dataset, published on Kaggle as [2015 Flight Delays and Cancellations](https://www.kaggle.com/datasets/usdot/flight-delays).
 
 The analysis focuses specifically on **December 2015**.
 
@@ -140,6 +176,12 @@ Airline-level analysis was performed to compare:
 
 This allows differences in operational performance to be examined without relying only on the total number of delayed flights.
 
+| Group | Airlines (delay rate) |
+| ----- | --------------------- |
+| Lowest delay rates | Hawaiian 6.9%, Alaska 13.9%, American Eagle 16.0%, Delta 16.0% |
+| Highest delay rates | Spirit 30.0%, JetBlue 29.5%, Virgin America 28.1%, Skywest 24.5% |
+| Largest carriers | Southwest 22.5% (105,569 flights), American 19.2% (75,078), Delta 16.0% (70,288) |
+
 ---
 
 ## 📍 Airport Analysis
@@ -151,6 +193,10 @@ Origin airports were analyzed using:
 * Airport-level comparisons
 
 A minimum-flight-volume threshold was used when identifying high-delay-rate airports to avoid overemphasizing airports with very small sample sizes.
+
+* **Highest delay rates (500+ flights):** HPN 31.2%, JFK 29.4%, OAK 29.3%, LGB 29.1%, SFO 27.6%.
+* **Most delayed flights:** ATL (5,506), ORD (5,456), DEN (4,538), LAX (4,010), DFW (3,766).
+* The 10 origin airports with the most delayed flights account for **38%** of all delayed flights.
 
 ---
 
@@ -236,19 +282,47 @@ Therefore, the cascade analysis is presented as an investigation of **potential 
 
 # 📊 Power BI Dashboard
 
-The final Power BI dashboard brings the analysis together into a single executive page.
+The Power BI dashboard brings the analysis together in three pages. Every chart title states the finding, and the **Airline**, **Origin airport** and **Day of December** slicers are synced across all pages. Clicking any chart element cross-filters the other visuals.
 
-### Dashboard sections include:
+| Page | What it shows |
+| ---- | ------------- |
+| **Overview** | KPI cards (operated flights, delayed flights, delay rate, average delay when delayed, cancellation rate), the daily delay trend with the holiday peak, daily cancellations, delay causes and the airline ranking |
+| **Airlines & Airports** | Airline scorecard (flights, delay rate, average delay when delayed, cancellation rate) and the top origin airports by delay rate and by number of delayed flights |
+| **Delay Propagation** | Cascade KPIs, the delay rate after a delayed vs. an on-time previous flight, the delay build-up by departure hour, and how the cascade was measured |
 
-* KPI cards: operated flights, delayed flights, delay rate, average delay when delayed, potential cascade flights
-* Airline delay rate and average delay when delayed
-* Top 15 origin airports by delay rate (airports with at least 500 flights)
-* Delay rate by departure hour (5am–11pm)
-* Delay rate by day of week
-* Delay minutes by cause
-* Cascade analysis: delay rate after a delayed vs. an on-time previous flight
+<details>
+<summary><b>Show all dashboard pages</b></summary>
 
-Clicking any chart element cross-filters the other visuals.
+**Overview**
+
+![Overview page](dashboard/overview.png)
+
+**Airlines & Airports**
+
+![Airlines and Airports page](dashboard/airlines_airports.png)
+
+**Delay Propagation**
+
+![Delay Propagation page](dashboard/delay_propagation.png)
+
+</details>
+
+---
+
+## ▶️ How to Reproduce
+
+1. **Get the data.** Download [2015 Flight Delays and Cancellations](https://www.kaggle.com/datasets/usdot/flight-delays) from Kaggle and put `flights.csv` (about 590 MB) in the `data/` folder. `airlines.csv` and `airports.csv` are already included.
+2. **Install the Python packages** (Python 3.10+):
+
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate          # macOS/Linux: source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+3. **Run the notebook.** Open `notebooks/flight_delay_analysis.ipynb` and run all cells. It filters December 2015, cleans the data, runs the analysis, and writes `data/flights_dec2015_clean.csv` and the SQLite database `data/flight_delay.db`.
+4. **Run the SQL (optional).** `sql/flight_delay_analysis.sql` contains the validation and cascade queries; run them against `data/flight_delay.db` in any SQLite tool.
+5. **Open the dashboard** as described below.
 
 ### Opening the dashboard
 
@@ -293,9 +367,11 @@ flight-delay-diagnostic/
 │
 ├── dashboard/
 │   ├── Flight_Delay_Diagnostic.pbip       (open this in Power BI Desktop)
+│   ├── overview.png, airlines_airports.png, delay_propagation.png  (screenshots)
 │   ├── Flight_Delay_Diagnostic.Report/    (pages and visuals)
 │   └── Flight_Delay_Diagnostic.SemanticModel/  (tables and DAX measures)
 │
+├── requirements.txt
 └── README.md
 ```
 

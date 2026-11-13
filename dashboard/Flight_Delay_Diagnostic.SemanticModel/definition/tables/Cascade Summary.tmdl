@@ -11,8 +11,16 @@ table 'Cascade Summary'
 		lineageTag: 81229655-4317-430e-a34a-22f09d18ff1a
 
 	measure 'Potential Cascade Flights' = 35151
-		formatString: 0
+		formatString: #,0
 		lineageTag: 06a80c3a-3821-4593-8c1b-1a3614f78678
+
+	measure 'Delay Rate After Delayed Flight' = CALCULATE([Cascade Delay Rate], 'Cascade Summary'[Previous flight status] = "Previous flight delayed")
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: dd54b184-8225-4517-9184-21cc8afcba18
+
+	measure 'Delay Rate After On-time Flight' = CALCULATE([Cascade Delay Rate], 'Cascade Summary'[Previous flight status] = "Previous flight not delayed")
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d94f220a-87b5-48fe-8e36-dfe1095d8172
 
 	column 'Previous flight status'
 		dataType: string

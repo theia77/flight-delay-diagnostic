@@ -1,8 +1,0 @@
-{
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
-  "name": "a2cfb9012d26ca1a38c9",
-  "displayName": "Flight Delay Executive Dashboard",
-  "displayOption": "FitToPage",
-  "height": 2160,
-  "width": 3840
-}
