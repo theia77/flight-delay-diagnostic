@@ -1,0 +1,61 @@
+table 'Delay Causes'
+	lineageTag: a242ccf7-c5c3-4399-b9f0-071d8383b0c1
+
+	measure 'Delay Minutes' =
+			
+			SWITCH(
+			    SELECTEDVALUE('Delay Causes'[Cause]),
+			    "Air System",
+			        CALCULATE(
+			            SUM('flights_dec2015_clean'[AIR_SYSTEM_DELAY]),
+			            'flights_dec2015_clean'[IS_DELAYED] = 1
+			        ),
+			    "Security",
+			        CALCULATE(
+			            SUM('flights_dec2015_clean'[SECURITY_DELAY]),
+			            'flights_dec2015_clean'[IS_DELAYED] = 1
+			        ),
+			    "Airline",
+			        CALCULATE(
+			            SUM('flights_dec2015_clean'[AIRLINE_DELAY]),
+			            'flights_dec2015_clean'[IS_DELAYED] = 1
+			        ),
+			    "Late Aircraft",
+			        CALCULATE(
+			            SUM('flights_dec2015_clean'[LATE_AIRCRAFT_DELAY]),
+			            'flights_dec2015_clean'[IS_DELAYED] = 1
+			        ),
+			    "Weather",
+			        CALCULATE(
+			            SUM('flights_dec2015_clean'[WEATHER_DELAY]),
+			            'flights_dec2015_clean'[IS_DELAYED] = 1
+			        )
+			)
+		formatString: 0
+		lineageTag: b8720e78-b437-494f-8226-b0327b76e09a
+
+	column Cause
+		lineageTag: 11fce6dd-db91-4a45-8bb3-d571ff8ee30d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Cause]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Delay Causes' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Cause", STRING,
+				    {
+				        {"Air System"},
+				        {"Security"},
+				        {"Airline"},
+				        {"Late Aircraft"},
+				        {"Weather"}
+				    }
+				)
+
+	annotation PBI_Id = 3f927abe15fe490cbba8735152f36797
+

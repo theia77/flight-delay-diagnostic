@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["flights_dec2015_clean","Cascade Summary"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table flights_dec2015_clean
+ref table 'Delay Causes'
+ref table 'Cascade Summary'
+
+ref cultureInfo en-US
+

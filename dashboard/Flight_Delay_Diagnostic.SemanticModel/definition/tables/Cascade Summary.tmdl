@@ -1,0 +1,51 @@
+table 'Cascade Summary'
+	lineageTag: d45ea56e-0c6a-48cf-9d79-09559b9107cd
+
+	measure 'Cascade Delay Rate' =
+			
+			DIVIDE(
+			    SUM('Cascade Summary'[Current Delay Rate]),
+			    100
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 81229655-4317-430e-a34a-22f09d18ff1a
+
+	measure 'Potential Cascade Flights' = 35151
+		formatString: 0
+		lineageTag: 06a80c3a-3821-4593-8c1b-1a3614f78678
+
+	column 'Previous flight status'
+		dataType: string
+		lineageTag: 953766f6-9456-478d-b390-86906c6304b5
+		summarizeBy: none
+		sourceColumn: Previous flight status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current delay rate'
+		dataType: double
+		lineageTag: 7d5cec12-b98f-4fac-a563-ceb8156df1f2
+		summarizeBy: sum
+		sourceColumn: Current delay rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Cascade Summary' = m
+		mode: import
+		source =
+				let
+				    // Values from notebooks/flight_delay_analysis.ipynb (cascade analysis, delay = ARRIVAL_DELAY >= 15)
+				    Source = #table(
+				        type table [#"Previous flight status" = text, #"Current delay rate" = number],
+				        {
+				            {"Previous flight delayed", 70.45},
+				            {"Previous flight not delayed", 11.43}
+				        }
+				    )
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

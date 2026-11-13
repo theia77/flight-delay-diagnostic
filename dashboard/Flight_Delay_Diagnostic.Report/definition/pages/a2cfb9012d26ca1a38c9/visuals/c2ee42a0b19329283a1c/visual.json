@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "c2ee42a0b19329283a1c",
+  "position": {
+    "x": 66.666666666666671,
+    "y": 133.33333333333334,
+    "z": 13000,
+    "height": 113.33333333333334,
+    "width": 1603.3333333333335,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "December 2015 | 469,717 operated flights | 20.60% delayed (≥15 min)",
+                    "textStyle": {
+                      "fontSize": "36pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

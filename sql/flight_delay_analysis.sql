@@ -7,7 +7,7 @@ Database: SQLite
 
 Primary definitions:
 - Operated flight = CANCELLED = 0 AND DIVERTED = 0
-- Delayed flight = ARRIVAL_DELAY > 15 minutes
+- Delayed flight = ARRIVAL_DELAY >= 15 minutes (US DOT definition)
 - Delay rate = delayed operated flights / operated flights
 - Potential cascade = current flight delayed AND previous flight
   delayed, with scheduled flights <= 4 hours apart
@@ -35,10 +35,22 @@ WHERE CANCELLED = 0
 
 /* ==========================================================
    2. AVERAGE ARRIVAL DELAY
+   The overall average includes early arrivals as negative
+   values, so the average delay of delayed flights and the
+   share of early arrivals are shown alongside it.
    ========================================================== */
 
 SELECT
-    ROUND(AVG(ARRIVAL_DELAY), 2) AS average_arrival_delay_minutes
+    ROUND(AVG(ARRIVAL_DELAY), 2) AS average_arrival_delay_minutes,
+    ROUND(
+        AVG(CASE WHEN IS_DELAYED = 1 THEN ARRIVAL_DELAY END),
+        2
+    ) AS average_delay_when_delayed_minutes,
+    ROUND(
+        100.0 * SUM(CASE WHEN ARRIVAL_DELAY < 0 THEN 1 ELSE 0 END)
+        / COUNT(*),
+        2
+    ) AS arrived_early_percent
 FROM flights
 WHERE CANCELLED = 0
   AND DIVERTED = 0;
@@ -140,6 +152,9 @@ WHERE IS_DELAYED = 1
 
 /* ==========================================================
    7. DELAY RATE BY DEPARTURE HOUR
+   Hours with fewer than 1,000 flights (1am–4am) are flagged:
+   their delay rates are unstable and should not be charted
+   alongside the main operating day.
    ========================================================== */
 
 SELECT
@@ -151,7 +166,9 @@ SELECT
         100.0 * SUM(CASE WHEN IS_DELAYED = 1 THEN 1 ELSE 0 END)
         / COUNT(*),
         2
-    ) AS delay_rate_percent
+    ) AS delay_rate_percent,
+    CASE WHEN COUNT(*) < 1000 THEN 1 ELSE 0 END
+        AS low_volume_flag
 FROM flights
 WHERE CANCELLED = 0
   AND DIVERTED = 0
@@ -161,10 +178,14 @@ ORDER BY DEP_HOUR;
 
 /* ==========================================================
    8. DELAY RATE BY DAY OF WEEK
+   December 2015 has 5 Tuesdays, Wednesdays and Thursdays but
+   only 4 of the other weekdays, so each weekday's rate rests
+   on 4–5 specific dates. See query 15 for the daily trend.
    ========================================================== */
 
 SELECT
     DAY_OF_WEEK,
+    COUNT(DISTINCT DAY) AS dates_in_month,
     COUNT(*) AS operated_flights,
     SUM(CASE WHEN IS_DELAYED = 1 THEN 1 ELSE 0 END)
         AS delayed_flights,
@@ -252,7 +273,7 @@ ORDER BY operated_flights DESC;
    ==========================================================
 
    Definition:
-   - Current flight is delayed (>15 min)
+   - Current flight is delayed (>=15 min)
    - Previous flight operated by same aircraft was delayed
    - Scheduled departure gap <= 4 hours
 
@@ -316,7 +337,7 @@ cascade_count AS (
         SUM(
             CASE
                 WHEN IS_DELAYED = 1
-                 AND PREV_ARRIVAL_DELAY > 15
+                 AND PREV_ARRIVAL_DELAY >= 15
                  AND scheduled_gap_hours <= 4
                 THEN 1
                 ELSE 0
@@ -494,8 +515,8 @@ with_gap AS (
 
 SELECT
     CASE
-        WHEN PREV_ARRIVAL_DELAY BETWEEN 16 AND 30
-            THEN '16–30 min'
+        WHEN PREV_ARRIVAL_DELAY BETWEEN 15 AND 30
+            THEN '15–30 min'
         WHEN PREV_ARRIVAL_DELAY BETWEEN 31 AND 60
             THEN '31–60 min'
         WHEN PREV_ARRIVAL_DELAY BETWEEN 61 AND 120
@@ -526,18 +547,45 @@ SELECT
 
 FROM with_gap
 
-WHERE PREV_ARRIVAL_DELAY > 15
+WHERE PREV_ARRIVAL_DELAY >= 15
   AND scheduled_gap_hours <= 4
 
 GROUP BY previous_delay_bucket
 
 ORDER BY
     CASE previous_delay_bucket
-        WHEN '16–30 min' THEN 1
+        WHEN '15–30 min' THEN 1
         WHEN '31–60 min' THEN 2
         WHEN '61–120 min' THEN 3
         WHEN '120+ min' THEN 4
     END;
+
+
+/* ==========================================================
+   15. DAILY DELAY AND CANCELLATION TREND
+   Shows the holiday peak (22–30 Dec) that drives the
+   day-of-week pattern in query 8.
+   ========================================================== */
+
+SELECT
+    DAY,
+    DAY_OF_WEEK,
+    SUM(CASE WHEN CANCELLED = 0 AND DIVERTED = 0 THEN 1 ELSE 0 END)
+        AS operated_flights,
+    SUM(CASE WHEN IS_DELAYED = 1 THEN 1 ELSE 0 END)
+        AS delayed_flights,
+    ROUND(
+        100.0 * SUM(CASE WHEN IS_DELAYED = 1 THEN 1 ELSE 0 END)
+        / SUM(CASE WHEN CANCELLED = 0 AND DIVERTED = 0 THEN 1 ELSE 0 END),
+        2
+    ) AS delay_rate_percent,
+    ROUND(
+        100.0 * SUM(CANCELLED) / COUNT(*),
+        2
+    ) AS cancellation_rate_percent
+FROM flights
+GROUP BY DAY, DAY_OF_WEEK
+ORDER BY DAY;
 
 
 /* ==========================================================

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "0d44ba655e6075334965",
+  "position": {
+    "x": 1555,
+    "y": 245,
+    "z": 2000,
+    "height": 250,
+    "width": 463.33333333333337,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "flights_dec2015_clean"
+                    }
+                  },
+                  "Property": "Avg Delayed Arrival"
+                }
+              },
+              "queryRef": "flights_dec2015_clean.Avg Delayed Arrival",
+              "nativeQueryRef": "Avg Delayed Arrival",
+              "displayName": "Avg Delay When Delayed (min)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "flights_dec2015_clean"
+                  }
+                },
+                "Property": "Avg Delayed Arrival"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "flights_dec2015_clean.Avg Delayed Arrival"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
