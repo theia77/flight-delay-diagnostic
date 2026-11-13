@@ -210,7 +210,7 @@ Delay patterns were examined across:
 
 ### Daily trend: the holiday peak
 
-Delays were concentrated at the end of the month. The daily delay rate stayed between about **7% and 24%** until 21 December, then rose to **30–44% between 22 and 30 December** during the holiday travel peak. 28 December also had the month's highest cancellation rate (**13.4%**).
+Delays were concentrated at the end of the month. The daily delay rate stayed between about **7% and 24%** until 21 December, then averaged **33.5% between 22 and 30 December** (holiday travel peak), peaking at **43.7% on 30 December**. Christmas Day itself was quieter (17.4%). 28 December also had the month's highest cancellation rate (**13.3%**).
 
 ### Departure hour
 
@@ -424,7 +424,7 @@ The analysis highlights several important characteristics of the December 2015 f
 * Approximately **97K flights** were delayed by 15 minutes or more.
 * The overall delay rate was approximately **20.6%**; delayed flights averaged **62.6 minutes** late.
 * **Late aircraft operations** represented the largest contributor to total delay minutes (about 42%).
-* Delays peaked during the **22–30 December holiday period**, when daily delay rates reached 30–44%.
+* Delays peaked during the **22–30 December holiday period**, when the daily delay rate averaged 33.5% (vs 15.1% earlier in the month) and reached 43.7% on 30 December.
 * The delay rate rose steadily through the day, from about 10% at 5am to about 27% at 8–9pm.
 * Delay patterns varied across airlines and airports.
 * Flights following a delayed preceding flight showed a substantially higher observed delay rate under the project's cascade definition.
